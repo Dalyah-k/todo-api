@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const taskRoutes = require("./routes/taskRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
@@ -12,14 +13,17 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", taskRoutes);
+app.use("/api/auth", authRoutes);
 
 // Error handling middleware
 app.use((error, req, res, next) => {
   console.log(error);
 
   if (error.name === "ValidationError") {
+    const messages = Object.values(error.errors).map((err) => err.message);
+
     return res.status(400).json({
-      message: error.message,
+      message: messages,
     });
   }
 
@@ -49,5 +53,5 @@ mongoose
     });
   })
   .catch((error) => {
-    console.log("MongoDB connection error:", err);
+    console.log("MongoDB connection error:", error);
   });
