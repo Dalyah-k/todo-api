@@ -54,3 +54,154 @@ Send the token in the request header:
 ```text
 Authorization: Bearer <your-token>
 ```
+
+### Request Examples
+
+### Register
+
+```json
+{
+  "name": "Dalia",
+  "email": "dalia@example.com",
+  "password": "123456"
+}
+```
+
+### Login
+
+```json
+{
+  "email": "dalia@example.com",
+  "password": "123456"
+}
+```
+
+#### Login Response
+
+```json
+{
+  "message": "Login successful",
+  "token": "<your-jwt-token>",
+  "user": {
+    "id": "<user-id>",
+    "name": "Dalia",
+    "email": "dalia@example.com"
+  }
+}
+```
+
+### Create Task
+
+**POST** `/api/tasks`
+
+```json
+{
+  "title": "Learn API",
+  "completed": false
+}
+```
+
+#### Create Task Response
+
+```json
+{
+  "_id": "<task-id>",
+  "title": "Learn API",
+  "completed": false,
+  "user": {
+    "_id": "<user-id>",
+    "name": "Dalia",
+    "email": "dalia@example.com"
+  }
+}
+```
+
+### Update Task
+
+**PUT** `/api/tasks/:id`
+
+```json id="m5d0xe"
+{
+  "title": "Updated",
+  "completed": true
+}
+```
+
+#### Update Task Response
+
+```json
+{
+  "_id": "<task-id>",
+  "title": "Updated",
+  "completed": true,
+  "user": {
+    "_id": "<user-id>",
+    "name": "Dalia",
+    "email": "dalia@example.com"
+  }
+}
+```
+
+### Delete Task
+
+**DELETE** `/api/tasks/:id`
+
+#### Delete Task Response
+
+```json id="z5kq3r"
+{
+  "message": "Task deleted successfully",
+  "deletedTask": {
+    "_id": "<task-id>",
+    "title": "Updated",
+    "completed": true,
+    "user": "<user-id>"
+  }
+}
+```
+
+### Get All Tasks
+
+**GET** `/api/tasks`
+
+#### Get All Tasks Response
+
+```json
+{
+  "message": "Tasks retrieved successfully",
+  "tasks": [
+    {
+      "_id": "<task-id>",
+      "title": "Learn API",
+      "completed": false,
+      "user": {
+        "_id": "<user-id>",
+        "name": "Dalia",
+        "email": "dalia@example.com"
+      }
+    }
+  ]
+}
+```
+
+### Get Single Task
+
+**GET** `/api/tasks/:id`
+
+#### Get Single Task Response
+
+```json id="9g5q2w"
+{
+  "message": "Task retrieved successfully",
+  "task": {
+    "_id": "<task-id>",
+    "title": "Learn API",
+    "completed": false,
+    "user": {
+      "_id": "<user-id>",
+      "name": "Dalia",
+      "email": "dalia@example.com"
+    }
+  }
+}
+```
